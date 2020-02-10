@@ -129,6 +129,13 @@ TARGET_USES_LOGD := true
 # libxlog
 TARGET_LDPRELOAD += libxlog.so
 
+# Shims
+LINKER_FORCED_SHIM_LIBS := \
+	/system/lib/egl/libEGL_mali.so|libshim_egl.so \
+	/system/lib/hw/hwcomposer.mt8127.so|libshim_hwc.so \
+	/system/lib/libgui.so|libshim_egl.so \
+	/system/lib/libui.so|libshim_egl.so
+
 # SELinux
 BOARD_SEPOLICY_DIRS := \
        $(DEVICE_DIR)/sepolicy
