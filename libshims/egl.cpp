@@ -5,13 +5,10 @@
 
 extern "C" {
    void _ZN7android11BufferQueueC1ERKNS_2spINS_19IGraphicBufferAllocEEE(void) {}
-   void _ZN7android9CallStackC1EPKcii(void) {}
-
+   
    /* Can void this, it's only added by MediaTek for debugging */
    void _ZN7android11IDumpTunnel11asInterfaceERKNS_2spINS_7IBinderEEE(void) {}
    void _ZN7android22IGraphicBufferConsumer10BufferItemC1Ev(void) {}
-
-   void _ZN7android11BufferQueueC1ERKNS_2spINS_19IGraphicBufferAllocEEE(void) {}
 
    void _ZN7android9CallStackC1EPKci(char const*, int) {}
    void _ZN7android9CallStack6updateEii(int, int) {}
