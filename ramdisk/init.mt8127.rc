@@ -17,6 +17,14 @@ on init
     mkdir /storage/usbotg 0700 root root
     mount tmpfs tmpfs /storage/usbotg mode=0755,uid=1000,gid=1000
 
+    # Shims
+    export LD_SHIM_LIBS \
+        "/system/lib/egl/libEGL_mali.so|libshim_egl.so: \
+        /system/lib/hw/hwcomposer.mt8127.so|libshim_hwc.so: \
+        /system/lib/libgui.so|libshim_egl.so: \
+        /system/lib/libui.so|libshim_egl.so"
+
+
 # Backward compatibility
     symlink /system/etc /etc
     symlink /sys/kernel/debug /d
