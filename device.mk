@@ -91,10 +91,6 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_DIR)/ramdisk/fstab:root/fstab \
     $(DEVICE_DIR)/ramdisk/fstab.mt8127:root/fstab.mt8127
 
-# Is there an other way to avoid "- exec '/system/bin/sh' failed: No such file or directory (2) -" ?
-PRODUCT_COPY_FILES += \
-    $(DEVICE_DIR)/ramdisk/system/bin/sh:root/system/bin/sh
-
 # Media codecs files that are not copied from stock rom
 PRODUCT_COPY_FILES += \
 	$(DEVICE_DIR)/configs/media_codecs.xml:system/etc/media_codecs.xml \
