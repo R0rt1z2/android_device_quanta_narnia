@@ -1,11 +1,16 @@
 DEVICE_DIR := device/quanta/narnia
 VENDOR_DIR := vendor/quanta/narnia
+VENDOR_MT8127 := vendor/mediatek/mt8127
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := $(DEVICE_DIR)/kernel
+	LOCAL_KERNEL := $(DEVICE_DIR)/prebuilt/kernel
 else
 	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
+
+# Copy the kernel to rootdir
+PRODUCT_COPY_FILES += \
+	$(LOCAL_KERNEL):kernel
 
 # Get non-open-source specific aspects
 $(call inherit-product-if-exists, $(VENDOR_DIR)/narnia-vendor.mk)
@@ -13,21 +18,18 @@ $(call inherit-product-if-exists, $(VENDOR_DIR)/narnia-vendor.mk)
 # Device overlay
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_DIR)/overlay
 
-# Overlay Binaries
-$(call inherit-product, $(DEVICE_DIR)/overlay-binaries/overlay-binaries.mk)
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal mdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 
-# red border fix - Thx to thp@1997
+# Disable Strict Mode (only for eng builds)
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.strictmode.visual=0 \
     persist.sys.strictmode.disable=1
 
-# no RIL
+# Device is a tablet and doesn't has RIL/SIM
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=1 \
     ro.radio.use-ppp=no \
@@ -61,10 +63,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
     frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
-
-    # permissions files that are in stock rom, and available in CM => added them 2016/10/08
-PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
@@ -75,20 +74,28 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml
 
-    # Some permissions files that are in stock rom, but not in CM frameworks/native/data/etc/ => add them ? TODO
-    #system/etc/permissions/org.simalliance.openmobileapi.xml
-    #system/etc/permissions/com.android.media.remotedisplay.xml
-    #system/etc/permissions/android.software.live_wallpaper.xml
-    #system/etc/permissions/com.android.mediadrm.signer.xml
-    #system/etc/permissions/com.mediatek.effect.xml
-    #system/etc/permissions/com.google.android.maps.xml
-    #system/etc/permissions/com.android.location.provider.xml
-    #system/etc/permissions/com.google.widevine.software.drm.xml
-    #system/etc/permissions/com.google.android.media.effects.xml
-    #system/etc/permissions/platform.xml
-    #system/etc/permissions/android.mediatek.tedongle.xml
+# Rootdir/Ramdisk
+PRODUCT_COPY_FILES += \
+    $(DEVICE_DIR)/ramdisk/init.mt8127.rc:root/init.mt8127.rc \
+    $(DEVICE_DIR)/ramdisk/init.mt8127.power.rc:root/init.mt8127.power.rc \
+    $(DEVICE_DIR)/ramdisk/init.mt8127.usb.rc:root/init.mt8127.usb.rc \
+    $(DEVICE_DIR)/ramdisk/init.aee.rc:root/init.aee.rc \
+    $(DEVICE_DIR)/ramdisk/init.ssd.rc:root/init.ssd.rc \
+    $(DEVICE_DIR)/ramdisk/init.project.rc:root/init.project.rc \
+    $(DEVICE_DIR)/ramdisk/init.charging.rc:root/init.charging.rc \
+    $(DEVICE_DIR)/ramdisk/ueventd.mt8127.rc:root/ueventd.mt8127.rc \
+    $(DEVICE_DIR)/ramdisk/factory_init.project.rc:root/factory_init.project.rc \
+    $(DEVICE_DIR)/ramdisk/meta_init.rc:root/meta_init.rc \
+    $(DEVICE_DIR)/ramdisk/meta_init.project.rc:root/meta_init.project.rc \
+    $(DEVICE_DIR)/ramdisk/factory_init.rc:root/factory_init.rc \
+    $(DEVICE_DIR)/ramdisk/fstab:root/fstab \
+    $(DEVICE_DIR)/ramdisk/fstab.mt8127:root/fstab.mt8127
 
-# media codecs files that are not copied from stock rom
+# Is there an other way to avoid "- exec '/system/bin/sh' failed: No such file or directory (2) -" ?
+PRODUCT_COPY_FILES += \
+    $(DEVICE_DIR)/ramdisk/system/bin/sh:root/system/bin/sh
+
+# Media codecs files that are not copied from stock rom
 PRODUCT_COPY_FILES += \
 	$(DEVICE_DIR)/configs/media_codecs.xml:system/etc/media_codecs.xml \
 	$(DEVICE_DIR)/configs/media_profiles.xml:system/etc/media_profiles.xml \
@@ -107,38 +114,42 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_DIR)/configs/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(DEVICE_DIR)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
+# Hostapd Config Files
+PRODUCT_COPY_FILES += \
+    $(DEVICE_DIR)/configs/hostapd/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
+    $(DEVICE_DIR)/configs/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(DEVICE_DIR)/configs/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny
 
 # Audio policy
 PRODUCT_COPY_FILES += \
     $(DEVICE_DIR)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
-
 # Audio
 PRODUCT_PACKAGES += \
-	audio.a2dp.default
-
-# audio
-PRODUCT_PACKAGES += \
+	audio.a2dp.default \
 	audio_policy.default \
 	audio_policy.stub \
 	audio.r_submix.default \
 	audio.usb.default \
 	audio.primary.default \
 	libaudio-resampler
-
-# cam
-PRODUCT_PACKAGES += \
-	libcameraanalyzer
     
 # Bluetooth
 PRODUCT_PACKAGES += \
-	bluetooth.default
-	
+	bluetooth.default \
+    libbt-vendor
+
+# Wi-Fi
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    hostapd \
+    dhcpcd.conf
+
 # Power
 PRODUCT_PACKAGES += \
 	power.default
 
-# network
+# Network
 PRODUCT_PACKAGES += \
     netd
     
@@ -147,24 +158,18 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
-# root access
+# ROOT access
 PRODUCT_PACKAGES += \
 	su
 
-PRODUCT_COPY_FILES += \
-	$(LOCAL_KERNEL):kernel
-
-#PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_MODEL="EPICv2" \
-TARGET_DEVICE="UYT2"
-
-# libshims
+# MediaTek Shims
 PRODUCT_PACKAGES += \
    libshim_egl \
-   libshim_hwc
+   libshim_hwc \
+   libshim_audio \
+   libxlog
 
-# call dalvik heap config
+# Call dalvik heap config
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 
 # call hwui memory config		

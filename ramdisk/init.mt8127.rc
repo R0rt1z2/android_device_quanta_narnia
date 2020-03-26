@@ -1,5 +1,4 @@
 
-#connectivity related init script
 import init.project.rc
 import init.connectivity.rc
 import init.charging.rc
@@ -23,6 +22,8 @@ on init
         /system/lib/hw/hwcomposer.mt8127.so|libshim_hwc.so: \
         /system/lib/libgui.so|libshim_egl.so: \
         /system/lib/libui.so|libshim_egl.so"
+
+    export LD_PRELOAD "libxlog.so:libshim_audio.so"
 
 
 # Backward compatibility
@@ -155,16 +156,22 @@ on init
 
 # PixNDom fix end ##################
 
-#HWComposer Vsync
+# HWComposer Vsync
     chmod 0666 /dev/mtkfb_vsync
     chown system graphics /dev/mtkfb_vsync
 
-#HWComposer fence
+# HWComposer fence
     chmod 0666 /dev/sw_sync
     chown system graphics /dev/sw_sync
 
 # Change ION driver permission
     chmod 0666 /dev/ion
+
+# Chnage ION permissions
+    chmod 0666 /sys/kernel/debug/ion/heaps/*
+
+# Change NVRAM permissions
+    chmod -R 0777 /data/nvram/APCFG/APRDCL
 
 # Change BWC permission
     chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario

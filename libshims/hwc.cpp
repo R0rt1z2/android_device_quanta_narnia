@@ -5,10 +5,10 @@
 extern "C"
 {
     /* Return the remainder of the unsigned division of a and b */
-    unsigned int __umodsi3(unsigned int a, unsigned int b) 
+    uint32_t __umodsi3(uint32_t numerator, uint32_t denominator) 
     {
-        unsigned int rem;
-        rem = a % b;
+        uint32_t rem;
+        rem = numerator % denominator;
         return rem;
     }
 }
