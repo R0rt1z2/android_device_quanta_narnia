@@ -122,7 +122,8 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_DIR)/bluetooth
 ifneq (,$(strip $(wildcard bootable/recovery-twrp/twrp.cpp)))
 RECOVERY_VARIANT := twrp
 endif
-TARGET_RECOVERY_FSTAB := $(DEVICE_DIR)/recovery/root/recovery.fstab
+TW_THEME := portrait_hdpi
+TARGET_RECOVERY_FSTAB := $(DEVICE_DIR)/ramdisk/recovery.fstab
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 

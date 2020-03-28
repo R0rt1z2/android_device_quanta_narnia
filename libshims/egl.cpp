@@ -6,13 +6,9 @@
 
 extern "C" {
 
-   void _ZN7android11BufferQueueC2ERKNS_2spINS_19IGraphicBufferAllocEEE(const android::sp<android::IGraphicBufferAlloc>& allocator);
+   void _ZN7android11BufferQueueC2ERKNS_2spINS_19IGraphicBufferAllocEEE(char allocator) {}
 
-   void _ZN7android11BufferQueueC1ERKNS_2spINS_19IGraphicBufferAllocEEE(const android::sp<android::IGraphicBufferAlloc>& allocator){
-	
-        _ZN7android11BufferQueueC2ERKNS_2spINS_19IGraphicBufferAllocEEE(allocator);
-	
-   }
+   void _ZN7android11BufferQueueC1ERKNS_2spINS_19IGraphicBufferAllocEEE(char allocator) {}
    
    /* Can void this, it's only added by MediaTek for debugging */
    void _ZN7android11IDumpTunnel11asInterfaceERKNS_2spINS_7IBinderEEE(void) {}

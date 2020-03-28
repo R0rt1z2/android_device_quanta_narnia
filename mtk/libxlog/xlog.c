@@ -16,6 +16,11 @@
 
 #define LOG_TAG "xlog"
 
+struct xlog_entry {
+	char name[XLOG_NAME_MAX_LEN];
+	uint32_t level;
+};
+
 int xlogf_set_level(uint32_t level)
 {
     int ret = -1;

@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := egl.cpp
-LOCAL_SHARED_LIBRARIES := libui libgui libbinder libbase
+LOCAL_SHARED_LIBRARIES := libui libgui libbinder
 LOCAL_MODULE := libshim_egl
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_PROPRIETARY_MODULE := true
