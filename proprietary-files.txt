@@ -28,15 +28,14 @@ bin/drvbd
 bin/em_svr
 bin/ext4_resize
 bin/flatland
-bin/geomagnetidcd
+bin/geomagneticd
 bin/GetNvramData.sh
 bin/gsm0710muxd
-bin/gsm0710muxdmd
+bin/gsm0710muxdmd2
 bin/init.gprs-pppd
 bin/ipod
 bin/kisd
 bin/kpoc
-bin/kpoc_charger
 bin/lcdc_screen_cap
 bin/lsm303md
 bin/matv
@@ -127,14 +126,14 @@ lib/hw/gps.default.so
 lib/hw/gralloc.default.so
 lib/hw/gralloc.mt8127.so
 lib/hw/gralloc.mt8117.so
-lib/hw/hwcomposer.mt8172.so
+lib/hw/hwcomposer.mt8127.so
 lib/hw/keystore.default.so
 lib/hw/libaudio.r_submix.default.so
 lib/hw/libaudio.usb.default.so
 lib/hw/local_time.default.so
 lib/hw/power.default.so
 
-lib/modules/wlan.ko
+#lib/modules/wlan.ko
 
 lib/soundfx/libaudiopreprocessing.so
 lib/soundfx/libbundlewrapper.so
@@ -145,7 +144,7 @@ lib/soundfx/libreverbwrapper.so
 lib/soundfx/libvisualizer.so
 
 lib/egl/libEGL_mali.so
-lib/egl/libGLES_v1_CM_mali.so
+lib/egl/libGLESv1_CM_mali.so
 lib/egl/libGLESv2_mali.so
 
 lib/lib3a.so
@@ -220,7 +219,7 @@ lib/libmpodecoder.so
 lib/libmpoencoder.so
 lib/libmpojni.so
 lib/libmsbc_mtk.so
-lib/libmtktextspp.so
+lib/libmtkbtextspp.so
 lib/libmtk_cipher.so
 lib/libmtk_drvb.so
 lib/libmtkjpeg.so
@@ -257,8 +256,8 @@ lib/libperfservicenative.so
 lib/libPPAD2.so
 lib/libpppbtdun.so
 lib/libril_dongle.so
-lib/librilmtk
-lib/libtilmtkmd2.so
+lib/librilmtk.so
+lib/librilmtkmd2.so
 lib/libshowlogo.so
 lib/libspeech_enh_lib.so
 lib/libSR_AudioIn.so
