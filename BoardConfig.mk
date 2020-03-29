@@ -67,6 +67,7 @@ TARGET_CPU_MEMCPY_OPT_DISABLE := true
 # MTK
 BOARD_HAS_MTK_HARDWARE := true
 MTK_HARDWARE := true
+MTK_MT8127 := true
 
 # Block Based OTA
 BLOCK_BASED_OTA := false
