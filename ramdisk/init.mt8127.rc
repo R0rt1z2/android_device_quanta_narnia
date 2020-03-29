@@ -1,4 +1,5 @@
 
+#connectivity related init script
 import init.project.rc
 import init.connectivity.rc
 import init.charging.rc
@@ -7,14 +8,8 @@ import init.aee.rc
 import init.ssd.rc
 import init.no_ssd.rc
 import init.ssd_nomuser.rc
-import init.mt8127.power.rc
    
 on init
-    export USBOTG_STORAGE /storage/usbotg
-    mount tmpfs tmpfs /mnt/media_rw/ mode=0755,uid=1000,gid=1000
-    mkdir /mnt/media_rw/usbotg 0700 media_rw media_rw
-    mkdir /storage/usbotg 0700 root root
-    mount tmpfs tmpfs /storage/usbotg mode=0755,uid=1000,gid=1000
 
     # Shims
     export LD_SHIM_LIBS \
@@ -25,6 +20,11 @@ on init
 
     export LD_PRELOAD "libxlog.so:libshim_audio.so"
 
+    export USBOTG_STORAGE /storage/usbotg
+    mount tmpfs tmpfs /mnt/media_rw/ mode=0755,uid=1000,gid=1000
+    mkdir /mnt/media_rw/usbotg 0700 media_rw media_rw
+    mkdir /storage/usbotg 0700 root root
+    mount tmpfs tmpfs /storage/usbotg mode=0755,uid=1000,gid=1000
 
 # Backward compatibility
     symlink /system/etc /etc
@@ -92,7 +92,6 @@ on init
     chown system graphics /dev/graphics/fb0
 
 
-
 # PixNDom fix
     # 16/01/2016 : commented
     #chmod 0660 /dev/cpuctl
@@ -103,11 +102,8 @@ on init
     mknod /dev/stpwmt c 190 0;
     chmod 0660 /dev/stpwmt
 
-    # 16/01/2016 : folowing line does not seem to be applied ? 
     chown system system /dev/stpwmt
 
-
-# 16/01/2016 - ok, but /dev/stp*
     chmod 0666 /dev/cpuctl
 
     chmod 0660 /dev/touch
@@ -116,7 +112,7 @@ on init
     chmod 0600 /dev/RT_Monitor
     chown system system /dev/RT_Monitor
 
-    #chmod 0600 /dev/btif # dejà ok
+    #chmod 0600 /dev/btif 
     chown system system /dev/btif
 
     chmod 0660 /dev/mt6605
@@ -148,30 +144,22 @@ on init
 
     chmod 0600 /dev/mtgpio
     chown radio root /dev/mtgpio
-# / 16/01/2016
 
 # FM Radio device node
     chmod 0660 /dev/fm
     chown system media /dev/fm
 
-# PixNDom fix end ##################
 
-# HWComposer Vsync
+#HWComposer Vsync
     chmod 0666 /dev/mtkfb_vsync
     chown system graphics /dev/mtkfb_vsync
 
-# HWComposer fence
+#HWComposer fence
     chmod 0666 /dev/sw_sync
     chown system graphics /dev/sw_sync
 
 # Change ION driver permission
     chmod 0666 /dev/ion
-
-# Chnage ION permissions
-    chmod 0666 /sys/kernel/debug/ion/heaps/*
-
-# Change NVRAM permissions
-    chmod -R 0777 /data/nvram/APCFG/APRDCL
 
 # Change BWC permission
     chmod 0664 /sys/bus/platform/drivers/mem_bw_ctrl/concurrency_scenario
@@ -239,7 +227,6 @@ on init
     chown root system /proc/mtprof/cputime
     chown root system /proc/mtprof/reboot_pid
 	
-#For Runin Test. Added by wangfeng merge from apllo
     chown system system /sys/devices/platform/battery/Runin_test
 
 on boot
@@ -282,10 +269,6 @@ on fs
     write /proc/bootprof "INIT:eMMC:Mount_START"
     mount_all /fstab.mt8127
     write /proc/bootprof "INIT:eMMC:Mount_END"
-
-# PixNDom Don't mount quanta CDRom image
-#    mount iso9660 loop@/system/etc/iAmCdRom.iso /mnt/cd-rom ro
-# PixNDom end
 
     #change partition permission
     exec /system/etc/partition_permission.sh 

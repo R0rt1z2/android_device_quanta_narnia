@@ -30,7 +30,7 @@ on post-fs
     chmod 0660 /dev/stpwmt
     chown system system /dev/stpwmt
     chmod 0660 /dev/wmtdetect
- 		chown system system /dev/wmtdetect
+    chown system system /dev/wmtdetect
  		
     # FM Radio device, FIXME: this is not a proper way to set permissions
     chmod 0666 /dev/fm
