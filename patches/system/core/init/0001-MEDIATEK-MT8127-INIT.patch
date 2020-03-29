@@ -1,0 +1,39 @@
+diff --git a/init/init.c b/init/init.c
+index 1cce8d8c..18dc530e 100644
+--- a/init/init.c
++++ b/init/init.c
+@@ -770,6 +770,9 @@ static void export_kernel_boot_props(void)
+         { "ro.boot.mode", "ro.bootmode", "unknown", },
+         { "ro.boot.baseband", "ro.baseband", "unknown", },
+         { "ro.boot.bootloader", "ro.bootloader", "unknown", },
++#ifdef MTK_MT8127
++        { "ro.boot.hardware", "ro.hardware", "mt8127", },
++#endif
+     };
+ 
+     for (i = 0; i < ARRAY_SIZE(prop_map); i++) {
+@@ -927,6 +930,9 @@ static bool selinux_is_disabled(void)
+ static bool selinux_is_enforcing(void)
+ {
+ #ifdef ALLOW_DISABLE_SELINUX
++#ifdef MTK_MT8127
++    return false;
++#endif
+     char tmp[PROP_VALUE_MAX];
+ 
+     if (property_get("ro.boot.selinux", tmp) == 0) {
+diff --git a/init/Android.mk b/init/Android.mk
+index c6863bfb..a1be59b0 100755
+--- a/init/Android.mk
++++ b/init/Android.mk
+@@ -46,6 +46,10 @@ ifneq ($(TARGET_NR_SVC_SUPP_GIDS),)
+ LOCAL_CFLAGS += -DNR_SVC_SUPP_GIDS=$(TARGET_NR_SVC_SUPP_GIDS)
+ endif
+ 
++ifneq ($(MTK_MT8127),true)
++LOCAL_CFLAGS += -DMTK_MT8127
++endif
++
+ LOCAL_MODULE:= init
+ 
+ LOCAL_FORCE_STATIC_EXECUTABLE := true

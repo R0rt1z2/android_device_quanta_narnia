@@ -77,18 +77,18 @@ PRODUCT_COPY_FILES += \
 # Rootdir/Ramdisk
 PRODUCT_COPY_FILES += \
     $(DEVICE_DIR)/rootdir/init.mt8127.rc:root/init.mt8127.rc \
-    $(DEVICE_DIR)/ramdisk/init.mt8127.usb.rc:root/init.mt8127.usb.rc \
-    $(DEVICE_DIR)/ramdisk/init.aee.rc:root/init.aee.rc \
-    $(DEVICE_DIR)/ramdisk/init.ssd.rc:root/init.ssd.rc \
-    $(DEVICE_DIR)/ramdisk/init.project.rc:root/init.project.rc \
-    $(DEVICE_DIR)/ramdisk/init.charging.rc:root/init.charging.rc \
-    $(DEVICE_DIR)/ramdisk/ueventd.mt8127.rc:root/ueventd.mt8127.rc \
-    $(DEVICE_DIR)/ramdisk/factory_init.project.rc:root/factory_init.project.rc \
-    $(DEVICE_DIR)/ramdisk/meta_init.rc:root/meta_init.rc \
-    $(DEVICE_DIR)/ramdisk/meta_init.project.rc:root/meta_init.project.rc \
-    $(DEVICE_DIR)/ramdisk/factory_init.rc:root/factory_init.rc \
-    $(DEVICE_DIR)/ramdisk/enableswap.sh:root/enableswap.sh \
-    $(DEVICE_DIR)/ramdisk/system/bin/sh:root/system/bin/sh
+    $(DEVICE_DIR)/rootdir/init.mt8127.usb.rc:root/init.mt8127.usb.rc \
+    $(DEVICE_DIR)/rootdir/init.aee.rc:root/init.aee.rc \
+    $(DEVICE_DIR)/rootdir/init.ssd.rc:root/init.ssd.rc \
+    $(DEVICE_DIR)/rootdir/init.project.rc:root/init.project.rc \
+    $(DEVICE_DIR)/rootdir/init.charging.rc:root/init.charging.rc \
+    $(DEVICE_DIR)/rootdir/ueventd.mt8127.rc:root/ueventd.mt8127.rc \
+    $(DEVICE_DIR)/rootdir/factory_init.project.rc:root/factory_init.project.rc \
+    $(DEVICE_DIR)/rootdir/meta_init.rc:root/meta_init.rc \
+    $(DEVICE_DIR)/rootdir/meta_init.project.rc:root/meta_init.project.rc \
+    $(DEVICE_DIR)/rootdir/factory_init.rc:root/factory_init.rc \
+    $(DEVICE_DIR)/rootdir/enableswap.sh:root/enableswap.sh \
+    $(DEVICE_DIR)/rootdir/system/bin/sh:root/system/bin/sh
 
 # Media codecs files that are not copied from stock rom
 PRODUCT_COPY_FILES += \

@@ -125,7 +125,7 @@ ifneq (,$(strip $(wildcard bootable/recovery-twrp/twrp.cpp)))
 RECOVERY_VARIANT := twrp
 endif
 TW_THEME := portrait_hdpi
-TARGET_RECOVERY_FSTAB := $(DEVICE_DIR)/ramdisk/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_DIR)/rootdir/etc/recovery.fstab
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 
