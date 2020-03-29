@@ -70,6 +70,7 @@ MTK_HARDWARE := true
 
 # Block Based OTA
 BLOCK_BASED_OTA := false
+TARGET_OTA_ASSERT_DEVICE := narnia,UYT2,EPICv2
 
 # Enable MediaTek Flags used in the BSP
 BUILDING_MEDIATEK_BSP := false
