@@ -14,3 +14,9 @@ Storage | 8GB
 Display | 7" 1024 x 600 px
 
 This branch is ONLY for build Android 5.X based ROMs
+
+## Working
+* Actually Nothing
+
+## Bugs
+* All
