@@ -1,11 +1,11 @@
 #!/sbin/busybox sh
 
 BBX=/sbin/busybox
-LAST_DMESG=/tmp/last_dmesg.txt
+LAST_DMESG=/tmp/last_dmesg
 
 $BBX echo "LAST DMESG" >> $LAST_KMSG
 
-whhile [ "1" == "1" ];
+while [ "1" == "1" ];
 do
     $BBX cat $DMESG >> $LAST_KMSG
 done

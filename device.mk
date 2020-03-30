@@ -164,10 +164,7 @@ PRODUCT_PACKAGES += \
 
 # MediaTek Shims
 PRODUCT_PACKAGES += \
-   libshim_egl \
-   libshim_hwc \
-   libshim_audio \
-   libxlog
+    libnarnia
 
 # Call dalvik heap config
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
