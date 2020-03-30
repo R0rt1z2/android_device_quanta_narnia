@@ -87,8 +87,13 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_DIR)/rootdir/meta_init.rc:root/meta_init.rc \
     $(DEVICE_DIR)/rootdir/meta_init.project.rc:root/meta_init.project.rc \
     $(DEVICE_DIR)/rootdir/factory_init.rc:root/factory_init.rc \
-    $(DEVICE_DIR)/rootdir/enableswap.sh:root/enableswap.sh \
-    $(DEVICE_DIR)/rootdir/system/bin/sh:root/system/bin/sh
+    $(DEVICE_DIR)/rootdir/enableswap.sh:root/enableswap.sh
+
+# Debug Boot
+PRODUCT_COPY_FILES += \
+    $(DEVICE_DIR)/rootdir/sbin/busybox:root/sbin/busybox \
+    $(DEVICE_DIR)/rootdir/sbin/log_kmsg:root/sbin/log_kmsg \
+    $(DEVICE_DIR)/rootdir/sbin/sh:root/system/bin/sh
 
 # Media codecs files that are not copied from stock rom
 PRODUCT_COPY_FILES += \
