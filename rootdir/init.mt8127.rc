@@ -76,63 +76,9 @@ on init
 # This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
 
-#HWComposer fb0
+# HWComposer fb0
     chmod 0666 /dev/graphics/fb0
     chown system graphics /dev/graphics/fb0
-
-
-# PixNDom fix
-    # 16/01/2016 : commented
-    #chmod 0660 /dev/cpuctl
-
-    chmod 0666 /dev/mali
-    chown system graphics /dev/mali
-
-    mknod /dev/stpwmt c 190 0;
-    chmod 0660 /dev/stpwmt
-
-    chown system system /dev/stpwmt
-
-    chmod 0666 /dev/cpuctl
-
-    chmod 0660 /dev/touch
-    chown root system /dev/touch
-
-    chmod 0600 /dev/RT_Monitor
-    chown system system /dev/RT_Monitor
-
-    #chmod 0600 /dev/btif 
-    chown system system /dev/btif
-
-    chmod 0660 /dev/mt6605
-    chown system system /dev/mt6605
-
-    chmod 0660 /dev/nvram
-    chown root system /dev/nvram
-
-    chmod 0660 /dev/stpgps
-    chown gps gps /dev/stpgps
-
-    chmod 0660 /dev/stpbt
-    chown bluetooth radio /dev/stpbt
-
-    chmod 0660 /dev/wmtWifi
-    chown system system /dev/wmtWifi
-
-    chmod 0660 /dev/pro_info
-    chown root system /dev/pro_info
-
-    chmod 0660 /dev/dkb
-    chown root system /dev/dkb
-
-    chmod 0660 /dev/kb
-    chown root system /dev/kb
-
-    chmod 0640 /dev/bootimg
-    chown root system /dev/bootimg
-
-    chmod 0600 /dev/mtgpio
-    chown radio root /dev/mtgpio
 
 # FM Radio device node
     chmod 0660 /dev/fm
@@ -260,7 +206,7 @@ on fs
     write /proc/bootprof "INIT:eMMC:Mount_END"
 
     #change partition permission
-    exec /system/etc/partition_permission.sh 
+    #exec /system/etc/partition_permission.sh 
     
 # RGX init
 service pvrsrvctl /system/vendor/bin/pvrsrvctl --start 
